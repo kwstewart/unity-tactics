@@ -32,6 +32,14 @@ public class PlayerController : MonoBehaviour {
 		STR = Dice.DiceRoll (3, 6, 0, 4 - gameDifficulty);
 		WIL = Dice.DiceRoll (3, 6, 0, 4 - gameDifficulty);
 
+
+		// Base Height (inches)
+		// Male: 58 + 4D6
+		// Female: 53 + 4D6
+
+		// Base Weight (pounds)
+		// Height (in inches) + 40 + (4D6 * 3) + (Str * 10)
+
 		UpdateCharacterScreen ();
 	}
 
