@@ -10,6 +10,13 @@ public class PlayerController : MonoBehaviour {
 	private GameObject CHA_value, CON_value, DEX_value, INT_value, STR_value, WIL_value;
 	private Text CHA_text, CON_text, DEX_text, INT_text, STR_text, WIL_text;
 
+	public int Cha, Con, Dex, Int, Str, Wil;
+
+	public int Height, Weight;
+	private GameObject Height_value, Weight_value;
+	private Text Height_text, Weight_text;
+
+	private int[] Amod = {-5,-5,-4,-3,-2,-2,-1,-1,-1,0,0,0,0,1,1,1,2,2,3,4,5}; 
 
 	// Use this for initialization
 	void Start () {
@@ -32,15 +39,22 @@ public class PlayerController : MonoBehaviour {
 		STR = Dice.DiceRoll (3, 6, 0, 4 - gameDifficulty);
 		WIL = Dice.DiceRoll (3, 6, 0, 4 - gameDifficulty);
 
+		CalculateAttributeModifier ();
 
 		// Base Height (inches)
 		// Male: 58 + 4D6
 		// Female: 53 + 4D6
+		Height = Dice.DiceRoll (4, 6, 58);
 
 		// Base Weight (pounds)
 		// Height (in inches) + 40 + (4D6 * 3) + (Str * 10)
+		Weight = Height + 40 + (Dice.DiceRoll(4,6) * 3) + (Str * 10);
 
 		UpdateCharacterScreen ();
+	}
+
+	private void CalculateAttributeModifier() {
+		Str = Amod [STR];
 	}
 
 	private void UpdateCharacterScreen() {
@@ -62,6 +76,13 @@ public class PlayerController : MonoBehaviour {
 		WIL_value = GameObject.Find ("WIL_value");
 		WIL_text = WIL_value.GetComponent<Text> ();
 		WIL_text.text = WIL.ToString();
+		
+		Height_value = GameObject.Find ("Height_value");
+		Height_text = Height_value.GetComponent<Text> ();
+		Height_text.text = Height.ToString();		
+		Weight_value = GameObject.Find ("Weight_value");
+		Weight_text = Weight_value.GetComponent<Text> ();
+		Weight_text.text = Weight.ToString();
 	}
 
 
